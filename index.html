@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Pedido de Exame - Clínica Santa Izabel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f8fafc;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #0d6efd;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 12px;
+      display: block;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      margin: 8px 0 16px 0;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    button {
+      background: #25D366;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #128C7E;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pedido de Exame</h1>
+
+  <form id="whatsappForm">
+    <label for="dentist">Dentista:</label>
+    <input id="dentist" name="dentist" type="text" required>
+
+    <label for="patient">Paciente:</label>
+    <input id="patient" name="patient" type="text" required>
+
+    <label for="teeth">Dentes (ex: 11, 12, 13):</label>
+    <input id="teeth" name="teeth" type="text" required>
+
+    <label for="exam_type">Tipo de Exame:</label>
+    <select id="exam_type" name="exam_type" required>
+      <option value="">Selecione</option>
+      <option value="Panorâmica">Panorâmica</option>
+      <option value="Tomografia">Tomografia</option>
+      <option value="Periapical">Periapical</option>
+    </select>
+
+    <label for="notes">Observações:</label>
+    <textarea id="notes" name="notes" rows="4"></textarea>
+
+    <button type="submit">Enviar via WhatsApp</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('whatsappForm');
+    
+    // Substitua pelo número da sua clínica no formato internacional (ex: 55DDDNÚMERO)
+    const whatsappNumber = "5566999620073"; 
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const dentist = encodeURIComponent(form.dentist.value);
+      const patient = encodeURIComponent(form.patient.value);
+      const teeth = encodeURIComponent(form.teeth.value);
+      const exam_type = encodeURIComponent(form.exam_type.value);
+      const notes = encodeURIComponent(form.notes.value);
+
+      const message = `📄 *Pedido de Exame*\n\n🦷 Dentista: ${dentist}\n👤 Paciente: ${patient}\n🦷 Dentes: ${teeth}\n🧪 Tipo de Exame: ${exam_type}\n📝 Observações: ${notes}`;
+
+      // Cria link para WhatsApp Web / App
+      const whatsappLink = `https://wa.me/${whatsappNumber}?text=${message}`;
+
+      // Abre o WhatsApp
+      window.open(whatsappLink, '_blank');
+    });
+  </script>
+</body>
+</html>
